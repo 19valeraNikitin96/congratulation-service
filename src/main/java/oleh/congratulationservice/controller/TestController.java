@@ -35,4 +35,9 @@ public class TestController {
         CongratulationEntity res = repository.save(entity);
         return "id: "+res.getId();
     }
+
+    @GetMapping("/after-git")
+    public String afterGit(){
+        return "After git";
+    }
 }
