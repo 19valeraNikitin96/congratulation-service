@@ -24,4 +24,6 @@ public class CongratulationEntity {
 
     @Column(name = "msg")
     private String msg;
+
+
 }
