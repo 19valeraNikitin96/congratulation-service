@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "congratulations")
@@ -25,5 +26,6 @@ public class CongratulationEntity {
     @Column(name = "msg")
     private String msg;
 
-
+    @Column(name = "date")
+    private Date date;
 }
