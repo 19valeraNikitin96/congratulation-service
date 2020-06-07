@@ -7,7 +7,8 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class RequestJSON {
+public class CongratulationJSON {
+    private Integer id;
     private String email;
     private String message;
     private DateJSON date;

@@ -10,4 +10,7 @@ public interface CongratulationService {
 
     Validation<Void, CongratulationException> deleteBy(Integer id);
 
+    Validation<Void, CongratulationException> update(CongratulationBO bo);
+
+    Validation<CongratulationBO, CongratulationException> getBy(Integer id);
 }

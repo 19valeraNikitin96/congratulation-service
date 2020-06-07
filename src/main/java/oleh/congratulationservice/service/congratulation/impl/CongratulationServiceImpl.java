@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CongratulationServiceImpl implements CongratulationService {
 
@@ -35,5 +37,23 @@ public class CongratulationServiceImpl implements CongratulationService {
             return res;
         }
         return res;
+    }
+
+    @Override
+    public Validation<Void, CongratulationException> update(CongratulationBO bo) {
+        congratulationRepository.save(congratulationMapper.toEntity(bo));
+        return new Validation<>();
+    }
+
+    @Override
+    public Validation<CongratulationBO, CongratulationException> getBy(Integer id) {
+        Validation<CongratulationBO, CongratulationException> resp = new Validation<>();
+        Optional<CongratulationEntity> res = congratulationRepository.findById(id);
+        if(res.isEmpty()){
+            resp.add(new CongratulationException("Congratulation not found"));
+            return resp;
+        }
+        resp.setData(congratulationMapper.toBO(res.get()));
+        return resp;
     }
 }
