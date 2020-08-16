@@ -118,5 +118,22 @@ Response body #2
 }
 ```
 
+### Urgent send
+Request </p>
+Method: **POST** <p>
+_URL: **/congratulation/urgent**_
 
+Request body </p>
+```json
+{
+  "email": "a@a.a",
+  "message": "Поздравляю тебя, мой дорогой друг!!!"
+}
+```
 
+Response body #1 </p>
+```json
+{
+  "status": "ok"
+}
+```

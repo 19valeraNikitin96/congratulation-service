@@ -17,8 +17,12 @@ public class CongratulationMapper {
         entity.setId(bo.getId());
         entity.setEmail(bo.getEmail());
         entity.setMsg(bo.getMessage());
-        entity.setDate(new Date(bo.getDate().getYear()-1900, bo.getDate().getMonth(), bo.getDate().getDay()));
+        entity.setDate(toSqlDate(bo.getDate()));
         return entity;
+    }
+
+    public Date toSqlDate(DateBO bo){
+        return new Date(bo.getYear()-1900, bo.getMonth(), bo.getDay());
     }
 
     public CongratulationBO toBO(CongratulationJSON json) {
@@ -61,5 +65,13 @@ public class CongratulationMapper {
         json.setMonth(bo.getMonth());
         json.setYear(bo.getYear());
         return json;
+    }
+
+    public DateBO toBO(DateJSON json) {
+        return DateBO.builder()
+                .day(json.getDay())
+                .month(json.getMonth())
+                .year(json.getYear())
+                .build();
     }
 }

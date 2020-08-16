@@ -3,12 +3,15 @@ package oleh.congratulationservice.controller.congratulation;
 import oleh.congratulationservice.bo.CongratulationBO;
 import oleh.congratulationservice.controller.congratulation.model.CongratulationJSON;
 import oleh.congratulationservice.controller.congratulation.model.CongratulationIdJSON;
+import oleh.congratulationservice.controller.congratulation.model.DateJSON;
+import oleh.congratulationservice.controller.congratulation.model.RequestUrgentJSON;
 import oleh.congratulationservice.controller.model.ResponseJSON;
 import oleh.congratulationservice.exception.CongratulationException;
 import oleh.congratulationservice.exception.Validation;
 import oleh.congratulationservice.mapper.CongratulationMapper;
 import oleh.congratulationservice.service.congratulation.CongratulationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,7 @@ import static oleh.congratulationservice.common.ResponseStatus.*;
 public class CongratulationController {
 
     @Autowired
+    @Qualifier("congratulationServiceImpl")
     private CongratulationService congratulationService;
     @Autowired
     private CongratulationMapper congratulationMapper;
@@ -76,5 +80,18 @@ public class CongratulationController {
         r.setStatus(FAILED.getStatus());
         r.setMsg(res.getExceptions().get(0).getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(r);
+    }
+
+    //@RequestMapping(value = "/urgent", method = RequestMethod.POST)
+    @PostMapping("/urgent")
+    public ResponseEntity<?> sendUrgentMsg(@RequestBody RequestUrgentJSON json){
+        congratulationService.sendUrgentMsg(json.getEmail(), json.getMessage());
+        return ResponseEntity.ok(new ResponseJSON<String>("Ok", "Success", null));
+    }
+
+    @PostMapping("/distribution")
+    public ResponseEntity<?> distribution(@RequestBody DateJSON json){
+        congratulationService.distribution(congratulationMapper.toBO(json));
+        return ResponseEntity.ok(new ResponseJSON<String>("Ok", "Success", null));
     }
 }
